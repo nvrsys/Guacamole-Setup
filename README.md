@@ -33,11 +33,11 @@
 	Items downloaded are setup are placed in the $DOWNLOAD_DIR/guacamole-setup dir as follows
 	1. 1-setup.sh				- the parent install script itself
 	2. 2-install-guacamole.sh 		- Guacamole install script (inspired by https://github.com/MysticRyuujin/guac-install)
-	3. 3-install-nginx.sh 			- Installs Nginx and suto configures as a front end for Guacamole (optional)
+	3. 3-install-nginx.sh 			- Installs Nginx and auto configures as a front end for Guacamole (optional)
 	4. 4a-install-ssl-self-signed-nginx.sh 	- Configures self signed ssl certs for Nginx (optional)
 	5. 4b-install-ssl-letsencrypt-nginx.sh 	- Installs and configures Let's Encrypt with Guacamole and Nginx (optional)
 	6. add-duo-mfa-guacamole.sh 		- Adds the Duo MFA extensions to Guacamole if not selected at install (optional)
-	7. add-ldap-auth-guacamole.sh 		- Adds the LDAP Active Directory extension to Guacamole and guides the specific setup requirements (optional)
+	7. add-ldap-auth-guacamole.sh 		- Adds the LDAP Active Directory extension to Guacamole and guides the specific LDAP setup requirements (optional)
 	8. add-totp-mfa-guacamole.sh  		- Adds the TOTP MFA extension to Guacamole if not selected at install (optional)
 	9. backup-guacamole.sh 			- A simple Guacamole backup script
 	10. enable-guacd-ssl.sh 		- A hardening script to wrap an extra ssl layer between the guacd server and the Guacamole client (optional)
