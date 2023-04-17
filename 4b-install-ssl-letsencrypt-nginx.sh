@@ -22,8 +22,8 @@ echo -e "Let's Encrypt SSL configuration for Nginx.."
 
 #TOMCAT_VERSION="tomcat9"
 #LOG_LOCATION=$(eval echo ~${SUDO_USER})/lets-encrypt-inst.log
+#DOWNLOAD_DIR=$(eval echo ~${SUDO_USER})
 #GUAC_URL=http://localhost:8080/guacamole/
-
 #for file in "/etc/nginx/sites-enabled"/*
 #do
 #PROXY_SITE="${file##*/}"
