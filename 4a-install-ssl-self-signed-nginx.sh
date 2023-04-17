@@ -19,19 +19,19 @@ SHOWASTEXT2='"Cert:\LocalMachine\Root"'
 # Discover all IPv4 interfaces addresses to bind to new SSL certficates
 echo
 	echo -e "${GREY}Discovering the default route interface and DNS names to bind with the new SSL certificate..."
-	# Dump interface info in one line and copy this output to a temp file
+	# Dump interface info and copy this output to a temp file
 	DUMP_IPS=$(ip -o addr show up primary scope global | while read -r num dev fam addr rest; do echo ${addr%/*}; done)
 	echo $DUMP_IPS > $TMP_DIR/dump_ips.txt
 
-	# Take all dump results and write these out into one IP per row, then add output to a temporary list
+	# Filter out anything but numerical characters, then add output to a temporary list
 	grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" $TMP_DIR/dump_ips.txt > $TMP_DIR/ip_list.txt
 
-	# Separate by row number the contents of ip_list.txt, output each row into a separate IP per tmp file
+	# Separate each row in the temporary ip_list.txt file and further split each single row into a separate new temp file for each individual IP address found
 	sed -n '1p' $TMP_DIR/ip_list.txt > $TMP_DIR/1st_ip.txt
 	#sed -n '2p' $TMP_DIR/ip_list.txt > $TMP_DIR/2nd_ip.txt # uncomment for 2nd interface
 	#sed -n '3p' $TMP_DIR/ip_list.txt > $TMP_DIR/3rd_ip.txt # uncomment for 3rd interface etc
 
-	# Assign each tmp file a discreet variable for use in the certificate parameters setup
+	# Assign each individual IP address temp file a discreet variable for use in the certificate parameters setup
 	IP1=$(cat $TMP_DIR/1st_ip.txt)
 	#IP2=$(cat $TMP_DIR/2nd_ip.txt) # uncomment for 2nd interface
 	#IP3=$(cat $TMP_DIR/3rd_ip.txt) # uncomment for 3rd interface etc
