@@ -140,6 +140,7 @@ wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Se
 # Grab backup and security hardening scripts
 wget -q --show-progress  https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/backup-guac.sh -O backup-guac.sh
 wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/add-ssl-guac-to-gaucd-ssl.sh -O add-ssl-guac-to-gaucd-ssl.sh
+wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/add-fail2ban.sh -O add-fail2ban.sh
 
 # Grab a (customisable) branding extension
 wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/branding.jar -O branding.jar
