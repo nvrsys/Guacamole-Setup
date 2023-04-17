@@ -76,7 +76,7 @@ else
 fi
 
 # Configure Nginx to accept the new certificates
-cat >/etc/nginx/sites-available/$PROXY_SITE <<EOL
+cat > /etc/nginx/sites-available/$PROXY_SITE <<EOL
 server {
     listen 80 default_server;
     #listen [::]:80 default_server;
