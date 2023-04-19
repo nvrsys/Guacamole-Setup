@@ -1,17 +1,15 @@
 #!/bin/bash
-################################################################
-## Guacamole MySQL Database Backup
-## David Harrop
-## April 2023
-################################################################
+#######################################################################################################################
+# Guacamole MySQL Database Backup
+# David Harrop
+# April 2023
+#######################################################################################################################
 
 export PATH=/bin:/usr/bin:/usr/local/bin
 TODAY=`date +%Y-%m-%d`
 USER_HOME_DIR=$(eval echo ~${SUDO_USER})
 
-################################################################
-################## Update below values ########################
-
+# Update below values
 DB_BACKUP_PATH=$USER_HOME_DIR/mysqlbackups/
 MYSQL_HOST='localhost'
 MYSQL_PORT='3306'
@@ -21,8 +19,7 @@ DATABASE_NAME='guacamole_db'
 BACKUP_RETAIN_DAYS=30 ## Number of days to keep local backup copy
 RECIPIENT_EMAIL=yourname@gmail.com
 
-#################################################################
-
+# Backup code
 mkdir -p ${DB_BACKUP_PATH}
 echo "Backup started for database - ${DATABASE_NAME}"
 
@@ -36,7 +33,7 @@ ${DB_BACKUP_PATH}${DATABASE_NAME}-${TODAY}.sql
 SQLFILE=${DB_BACKUP_PATH}${DATABASE_NAME}-${TODAY}.sql
 gzip -f ${SQLFILE} 
 
-#Error check and email alert
+# Error check and email alerts
 if [ $? -eq 0 ]; then
 echo "Guacamomle Database Backup Success" | mailx -s "Guacamomle Database Backup Success" ${RECIPIENT_EMAIL}
 else
@@ -44,5 +41,5 @@ echo "Guacamomle Database Backup Failed" | mailx -s "Guacamomle Database Backup 
 exit 1
 fi
 
-#Protect disk space and remove backups older than {BACKUP_RETAIN_DAYS} days
+# Protect disk space and remove backups older than {BACKUP_RETAIN_DAYS} days
 find ${DB_BACKUP_PATH} -mtime +${BACKUP_RETAIN_DAYS} -delete

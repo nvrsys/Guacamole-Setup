@@ -1,11 +1,11 @@
 #!/bin/bash
-################################################################
-## Harden Guacd <-> Guac client traffic in SSL wrapper
-## David Harrop
-## April 2022
-################################################################
+#######################################################################################################################
+# Harden Guacd <-> Guac client traffic in SSL wrapper
+# David Harrop
+# April 2023
+#######################################################################################################################
 
-	YELLOW='\033[0;33m'
+YELLOW='\033[0;33m'
 
 #Create the special directory for guacd ssl certfifacte and key.
 sudo mkdir /etc/guacamole/ssl
@@ -35,9 +35,8 @@ sudo chown daemon:daemon /etc/guacamole/ssl/guacd.crt
 sudo chmod 644 /etc/guacamole/ssl/guacd.crt
 sudo chmod 644 /etc/guacamole/ssl/guacd.key
 
-echo -e "${YELLOW}When prompted for a password, enter 'changeit' then select yes to trust the new certificate"
-
 #Add the new certificate into the Java Runtime certificate store and set JRE to trust it.
+echo -e "${YELLOW}When prompted for a password, enter 'changeit' then select yes to trust the new certificate"
 cd /etc/guacamole/ssl
 sudo keytool -importcert -alias guacd -keystore /usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts -file guacd.crt
 

@@ -1,11 +1,11 @@
 #!/bin/bash
-############################################################################
+#######################################################################################################################
 # Add self signed SSL certificates to Guacamole with Nginx reverse proxy
 # For Ubuntu / Debian / Raspian
 # 4a of 4
 # David Harrop
 # April 2023
-############################################################################
+#######################################################################################################################
 
 # To run manually and regenerate certificates, this script must be run in the current user enviroment [-E switch]
 # to provide certifacate outputs correctly. Runing just as sudo will save certs to sudo's home path

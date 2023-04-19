@@ -1,27 +1,30 @@
 #!/bin/bash
-############################################################################
+######################################################################################################################
 # Guacamole appliance setup script
 # For Ubuntu / Debian / Raspian
 # David Harrop
 # April 2023
-############################################################################
+#######################################################################################################################
 
 # To install latest snapshot:
 # wget https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/1-setup.sh && chmod +x 1-setup.sh && ./1-setup.sh
 
 # If something isn't working? # tail -f /var/log/syslog /var/log/tomcat*/*.out /var/log/mysql/*.log
 
-# This whole install routine could be collated into one huge script, but it is far easer to manage and maintan by breaking
-# up the different stages of the install into at least 4 separate scripts as follows...
-# 1-setup.sh is a central script that manages all inputs, options and sequences other included install scripts.
-# 2-install-guacamole is the main guts of the whole build. This script downloads and builds Guacamole and options from source.
+# This whole install routine could be collated into one huge script, but it is far easer to manage and maintan by 
+# breaking up the different stages of the install into at least 4 separate scripts as follows...
+# 1-setup.sh is a central script that manages all inputs, options and sequences other included 'install' scripts.
+# 2-install-guacamole is the main guts of the whole build. This script downloads and builds Guacamole from source.
 # 3-install-nginx.sh automatically installs and configues Nginx to work as an http port 80 front end to Gaucamole
 # 4a-install-self-signed-nginx.sh sets up the new Nginx/Guacamole front end with self signed SSL certificates.
 # 4b-install-ssl-letsencrypt-nginx.sh sets up Nginx with public SSL certificates from LetsEncrypt.
 
-clear
 
-####################  Setup all variables check for previous build files ####################
+#######################################################################################################################
+# Initial enviromment setup ###########################################################################################
+#######################################################################################################################
+
+clear
 
 # Prepare text output colours
 GREY='\033[0;37m'
@@ -123,7 +126,10 @@ if [ "$( find . -maxdepth 2 \( -name 'guacamole-*' -o -name 'mysql-connector-jav
 exit 1
 fi
 
-####################  Start the download and install ####################
+
+#######################################################################################################################
+# Download github setup scripts #######################################################################################
+#######################################################################################################################
 
 # Download config scripts and setup items (snapshot version from github)...
 cd $DOWNLOAD_DIR
@@ -155,7 +161,9 @@ read -t 15 -p $'Script paused for (optional) tweaking of scripts before running.
 
 clear
 
-####################  Begin main interactive install options ####################
+#######################################################################################################################
+# Begin install menu prompts ##########################################################################################
+#######################################################################################################################
 
 # We need a default hostname avaiable to insert if we do not want to change the name. This approach allows the user to simply
 # hit enter without a blank entry into the /etc/hosts file. 
@@ -220,7 +228,7 @@ fi
 
 # Prompt the user to see if they would like to apply the Mysql secure installation
 if [ -z ${SECURE_MYSQL} ] && [ "${INSTALL_MYSQL}" = true ]; then
-	echo -e -n "${GREY}SQL: Apply MySQL secure installation settings to LOCAL db? (y/n) [default y]:${GREY}"
+	echo -e -n "${GREY}SQL: Apply MySQL secure installation settings to LOCAL db? (y/n) [default y]: ${GREY}"
 	read PROMPT
 	if [[ ${PROMPT} =~ ^[Nn]$ ]]; then
 	SECURE_MYSQL=false
@@ -231,7 +239,7 @@ fi
 
 # Prompt the user to see if they would like to apply the Mysql secure installation
 if [ -z ${SECURE_MYSQL} ] && [ "${INSTALL_MYSQL}" = false ]; then
-	echo -e -n "${GREY}SQL: Apply MySQL secure installation settings to REMOTE db? (y/n) [default n]:${GREY}"
+	echo -e -n "${GREY}SQL: Apply MySQL secure installation settings to REMOTE db? (y/n) [default n]: ${GREY}"
 	read PROMPT
 	if [[ ${PROMPT} =~ ^[Yy]$ ]]; then
 	SECURE_MYSQL=true
@@ -339,7 +347,7 @@ fi
 
 # Prompt for Guacamole front end reverse proxy option
 if [[ -z ${INSTALL_NGINX} ]]; then
-	echo -e -n "${LGREEN}INSTALL REVERSE PROXY?: Protect Gucamole behind Nginx reverse proxy (y/n)? [default y]: ${GREY}"
+	echo -e -n "${LGREEN}ADD REVERSE PROXY?: Protect Gucamole behind Nginx reverse proxy (y/n)? [default y]: ${GREY}"
 	read PROMPT
 	if [[ ${PROMPT} =~ ^[Nn]$ ]]; then
 	INSTALL_NGINX=false
@@ -415,6 +423,11 @@ if [[ -z ${LE_EMAIL} ]] && [[ "${INSTALL_LETS_ENCRYPT}" = true ]]; then
 	done
 fi
 
+
+#######################################################################################################################
+# Start global setup actions  #########################################################################################
+#######################################################################################################################
+
 # Ubuntu and Debian each require different dependency packages. Below works ok from Ubuntu 18.04 / Debian 10 and above...
 echo -e "${GREY}Checking linux distro specific dependencies..."
 if [[ $OS_FLAVOUR == "ubuntu" ]] || [[ $OS_FLAVOUR == "ubuntu"* ]]; then # potentially expand out distro choices here
@@ -439,8 +452,6 @@ NGINX_VAR="TOMCAT_VERSION=$TOMCAT_VERSION LOG_LOCATION=$LOG_LOCATION GUAC_URL=$G
 SELF_SIGN_VAR="DOWNLOAD_DIR=$DOWNLOAD_DIR TMP_DIR=$TMP_DIR TOMCAT_VERSION=$TOMCAT_VERSION LOG_LOCATION=$LOG_LOCATION GUAC_URL=$GUAC_URL PROXY_SITE=$PROXY_SITE CERT_COUNTRY=$CERT_COUNTRY CERT_STATE=$CERT_STATE CERT_LOCATION=$CERT_LOCATION CERT_ORG=$CERT_ORG CERT_OU=$CERT_OU" 
 LE_VAR="DOWNLOAD_DIR=$DOWNLOAD_DIR TOMCAT_VERSION=$TOMCAT_VERSION LOG_LOCATION=$LOG_LOCATION PROXY_SITE=$PROXY_SITE GUAC_URL=$GUAC_URL LE_DNS_NAME=$LE_DNS_NAME LE_EMAIL=$LE_EMAIL"
 
-####################  Now lets execute the selected install options ####################
-
 # Run the Guacamole install script
 sudo $GUAC_VAR $COLOUR_VAR ./2-install-guacamole.sh
 if [ $? -ne 0 ]; then
@@ -449,6 +460,11 @@ if [ $? -ne 0 ]; then
 	else
 	echo -e "${LGREEN}Guacamole installation complete\n- Visit: http://${PROXY_SITE}:8080/guacamole\n- Default login (user/pass): guacadmin/guacadmin\n${LYELLOW}***Be sure to change the password***.${GREY}"
 fi
+
+
+#######################################################################################################################
+# Start optional setup actions   ######################################################################################
+#######################################################################################################################
 
 # Duo Settings reminder
 if [ $INSTALL_DUO == "true" ]; then
