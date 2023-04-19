@@ -209,7 +209,7 @@ echo -e "${DGREY}Let's Encrypt email\t= ${GREY}${LE_EMAIL}${GREY}"
 # Prompt the user to see if they would like to install MySQL, default of yes
 if [[ -z ${INSTALL_MYSQL} ]]; then
 	echo
-	echo -e -n "${LGREEN}SQL: Install MySQL?, for a remote MySQL Server select 'n' [default y]: ${GREY}"
+	echo -e -n "${LGREEN}SQL: Install MySQL? (for a remote MySQL Server select 'n') (y/n) [default y]: ${GREY}"
 	read PROMPT
 	if [[ ${PROMPT} =~ ^[Nn]$ ]]; then
 	INSTALL_MYSQL=false
@@ -339,7 +339,7 @@ fi
 
 # Prompt for Guacamole front end reverse proxy option
 if [[ -z ${INSTALL_NGINX} ]]; then
-	echo -e -n "${LGREEN}Install Nginx reverse proxy for Guacamole(y/n)? [default y]: ${GREY}"
+	echo -e -n "${LGREEN}INSTALL REVERSE PROXY?: Protect Gucamole behind Nginx reverse proxy (y/n)? [default y]: ${GREY}"
 	read PROMPT
 	if [[ ${PROMPT} =~ ^[Nn]$ ]]; then
 	INSTALL_NGINX=false
@@ -351,7 +351,7 @@ fi
 # We must assign a DNS name for the new proxy site
 if [[ -z ${PROXY_SITE} ]] && [[ "${INSTALL_NGINX}" = true ]]; then
 	while true; do
-	read -p "PROXY: Proxy site's local DNS name?  [Enter to use ${DEFAULT_FQDN}] " PROXY_SITE
+	read -p "REVERSE PROXY NAME?: Enter proxy local DNS name? [Enter to use ${DEFAULT_FQDN}]" PROXY_SITE
 	[ "${PROXY_SITE}" = "" ] || [ "${PROXY_SITE}" != "" ] && break
 	# rather than allow any default, alternately force user to enter an explicit name instead
 	# [ "${PROXY_SITE}" != "" ] && break
@@ -367,7 +367,7 @@ fi
 # Prompt for self signed SSL reverse proxy option
 if [[ -z ${SELF_SIGNED} ]] && [[ "${INSTALL_NGINX}" = true ]]; then
 	# Prompt the user to see if they would like to install self signed SSL support for Nginx, default of no
-	echo -e -n "${GREY}SSL PROXY: Add self signed SSL support to Nginx proxy (choose 'n' for Let's Encrypt)(y/n) [default n]: "
+	echo -e -n "${GREY}PROXY SSL?: Add self signed SSL support to Nginx? (y/n)? (choose 'n' for Let's Encrypt)[default n]: "
 	read PROMPT
 	if [[ ${PROMPT} =~ ^[Yy]$ ]]; then
 	SELF_SIGNED=true
@@ -378,7 +378,7 @@ fi
 
 # Prompt to assign the self sign SSL certficate a custom expiry date, uncomment to force a manual entry
 #if [ "${SELF_SIGNED}" = true ]; then
-#	read - p "PROXY: Enter number of days till certificate expires [default 3650]: " CERT_DAYS
+#	read - p "PROXY: Enter number of days till SSL certificate expires [default 3650]: " CERT_DAYS
 #fi
 
 # If no self sign SSL certificate expiry given, lets assume a generous 10 year default certificate expiry
