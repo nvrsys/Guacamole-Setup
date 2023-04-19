@@ -65,14 +65,17 @@ mkdir -p $TMP_DIR
 sudo chmod -R 770 $TMP_DIR
 sudo chown -R $SUDO_USER:root $TMP_DIR
 
+# Github download branch
+GITHUB="https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/"
+
+# Set preferred Apache CDN download link
+GUAC_SOURCE_LINK="http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUAC_VERSION}"
+
 #Version of Guacamole to install
 GUAC_VERSION="1.5.0"
 
 # MySQL Connector/J version
 MYSQLJCON="8.0.30"
-
-# Set preferred Apache CDN download link
-GUAC_SOURCE_LINK="http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUAC_VERSION}"
 
 # Apache Tomcat version. You will need to check the correct version for your particular distro.
 TOMCAT_VERSION="tomcat9"
@@ -126,24 +129,24 @@ fi
 cd $DOWNLOAD_DIR
 echo
 echo -e "${GREY}Downloading setup files...${DGREY}"
-wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/2-install-guacamole.sh -O 2-install-guacamole.sh
-wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/3-install-nginx.sh -O 3-install-nginx.sh
-wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/4a-install-ssl-self-signed-nginx.sh -O 4a-install-ssl-self-signed-nginx.sh
-wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/4b-install-ssl-letsencrypt-nginx.sh -O 4b-install-ssl-letsencrypt-nginx.sh
+wget -q --show-progress ${GITHUB}2-install-guacamole.sh -O 2-install-guacamole.sh
+wget -q --show-progress ${GITHUB}3-install-nginx.sh -O 3-install-nginx.sh
+wget -q --show-progress ${GITHUB}4a-install-ssl-self-signed-nginx.sh -O 4a-install-ssl-self-signed-nginx.sh
+wget -q --show-progress ${GITHUB}4b-install-ssl-letsencrypt-nginx.sh -O 4b-install-ssl-letsencrypt-nginx.sh
 
 # Grab Guacamole auth extension config scripts
-wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/add-mfa-duo.sh -O add-mfa-duo.sh
-wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/add-auth-ldap.sh -O add-auth-ldap.sh
-wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/add-mfa-totp.sh -O add-mfa-totp.sh
+wget -q --show-progress ${GITHUB}add-mfa-duo.sh -O add-mfa-duo.sh
+wget -q --show-progress ${GITHUB}add-auth-ldap.sh -O add-auth-ldap.sh
+wget -q --show-progress ${GITHUB}add-mfa-totp.sh -O add-mfa-totp.sh
 
 
 # Grab backup and security hardening scripts
-wget -q --show-progress  https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/backup-guac.sh -O backup-guac.sh
-wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/add-ssl-guac-to-gaucd-ssl.sh -O add-ssl-guac-to-gaucd-ssl.sh
-wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/add-fail2ban.sh -O add-fail2ban.sh
+wget -q --show-progress ${GITHUB}backup-guac.sh -O backup-guac.sh
+wget -q --show-progress ${GITHUB}add-ssl-guac-to-gaucd-ssl.sh -O add-ssl-guac-to-gaucd-ssl.sh
+wget -q --show-progress ${GITHUB}add-fail2ban.sh -O add-fail2ban.sh
 
 # Grab a (customisable) branding extension
-wget -q --show-progress https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/branding.jar -O branding.jar
+wget -q --show-progress ${GITHUB}branding.jar -O branding.jar
 chmod +x *.sh
 
 # Pause to optionally customise downloaded scripts before starting install
