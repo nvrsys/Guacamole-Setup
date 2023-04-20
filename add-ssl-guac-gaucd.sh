@@ -69,6 +69,8 @@ echo -e "${YELLOW}When prompted for a password, enter 'changeit' then select yes
 cd /etc/guacamole/ssl
 sudo keytool -importcert -alias guacd -keystore /usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts -file guacd.crt
 
+sudo systemctl restart guacd
+
 echo
 echo "Done!"
 echo -e ${NC}
