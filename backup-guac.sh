@@ -6,11 +6,29 @@
 # April 2023
 #######################################################################################################################
 
+# Prepare text output colours
+GREY='\033[0;37m'
+DGREY='\033[0;90m'
+GREYB='\033[1;37m'
+RED='\033[0;31m'
+LRED='\033[0;91m'
+GREEN='\033[0;32m'
+LGREEN='\033[0;92m'
+YELLOW='\033[0;33m'
+LYELLOW='\033[0;93m'
+BLUE='\033[0;34m'
+LBLUE='\033[0;94m'
+CYAN='\033[0;36m'
+LCYAN='\033[0;96m'
+MAGENTA='\033[0;35m'
+LMAGENTA='\033[0;95m'
+NC='\033[0m' #No Colour
+
 clear
 
 # Check if user is root or sudo
 if ! [ $( id -u ) = 0 ]; then
-	echo "Please run this script as sudo or root" 1>&2
+	echo -e "${LGREEN}Please run this script as sudo or root${NC}" 1>&2
 	exit 1
 fi
 
