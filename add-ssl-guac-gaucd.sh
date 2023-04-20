@@ -60,11 +60,11 @@ sudo chown daemon:daemon /etc/guacamole/ssl/guacd.crt
 sudo chmod 644 /etc/guacamole/ssl/guacd.crt
 sudo chmod 644 /etc/guacamole/ssl/guacd.key
 
-echo -e "${YELLOW}When prompted for a password, enter 'changeit' then select yes to trust the new certificate"
-
 #Add the new certificate into the Java Runtime certificate store and set JRE to trust it.
 cd /etc/guacamole/ssl
 sudo keytool -importcert -alias guacd -keystore /usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts -file guacd.crt
+
+echo -e "${YELLOW}When prompted for a password, enter 'changeit' then select yes to trust the new certificate{$GREY}"
 
 echo
 echo "Done!"
