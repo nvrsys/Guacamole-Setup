@@ -7,7 +7,7 @@
 #######################################################################################################################
 
 # To install latest snapshot:
-# wget https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/1-setup.sh && chmod +x 1-setup.sh && ./1-setup.sh
+# wget https://raw.githubusercontent.com/nvrsys/Guacamole-Setup/main/1-setup.sh && chmod +x 1-setup.sh && ./1-setup.sh
 
 # If something isn't working? # tail -f /var/log/syslog /var/log/tomcat*/*.out /var/log/mysql/*.log
 
@@ -69,13 +69,14 @@ sudo chmod -R 770 $TMP_DIR
 sudo chown -R $SUDO_USER:root $TMP_DIR
 
 # Github download branch
-GITHUB="https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/"
+GITHUB="https://raw.githubusercontent.com/nvrsys/Guacamole-Setup/main/"
 
 #Version of Guacamole to install
-GUAC_VERSION="1.5.0"
+GUAC_VERSION="1.5.1"
 
 # Set preferred Apache CDN download link
-GUAC_SOURCE_LINK="http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUAC_VERSION}"
+
+GUAC_SOURCE_LINK="http://apache.org/dyn/closer.lua/guacamole/${GUAC_VERSION}/source/guacamole-server-${GUAC_VERSION}.tar.gz?action=download"
 
 # MySQL Connector/J version
 MYSQLJCON="8.0.30"
