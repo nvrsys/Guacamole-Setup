@@ -159,7 +159,8 @@ chmod +x *.sh
 echo -e "${LYELLOW}"
 read -t 15 -p $'Script paused for (optional) tweaking of scripts before running. Enter to Continue... (Script will auto resume after 15 sec.)\n'
 
-clear
+
+
 
 #######################################################################################################################
 # Begin install menu prompts ##########################################################################################
@@ -167,6 +168,7 @@ clear
 
 # We need a default hostname avaiable to insert if we do not want to change the name. This approach allows the user to simply
 # hit enter without a blank entry into the /etc/hosts file. 
+clear
 echo
 if [[ -z ${SERVER_NAME} ]]; then
 	echo -e "${LYELLOW}Update Linux system HOSTNAME [Enter to keep: ${HOSTNAME}]${LGREEN}"
