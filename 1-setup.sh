@@ -71,11 +71,11 @@ sudo chown -R $SUDO_USER:root $TMP_DIR
 # Github download branch
 GITHUB="https://raw.githubusercontent.com/itiligent/Guacamole-Setup/main/"
 
-# Set preferred Apache CDN download link
-GUAC_SOURCE_LINK="http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUAC_VERSION}"
-
 #Version of Guacamole to install
 GUAC_VERSION="1.5.0"
+
+# Set preferred Apache CDN download link
+GUAC_SOURCE_LINK="http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUAC_VERSION}"
 
 # MySQL Connector/J version
 MYSQLJCON="8.0.30"
