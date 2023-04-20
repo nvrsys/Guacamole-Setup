@@ -37,6 +37,7 @@ FAIL2BAN_BASE=""
 FAIL2BAN_GUAC=""
 FAIL2BAN_NGINX=""
 FAIL2BAN_SSH=""
+TOMCAT="tomcat9"
 
 #Clean up from any previous runs
 rm -f /tmp/fail2ban.conf
@@ -220,18 +221,7 @@ fi
 # Start optional setup actions   ######################################################################################
 #######################################################################################################################
 
-# Fail2ban Guacamole security policy option 
-
-if [ "${FAIL2BAN_GUAC}" = true ]; then
-# Find the correct tomcat package (with a little future proofing) so we can configure the fail2ban log path
-if [[ $( apt-cache show tomcat10 2> /dev/null | egrep "Version: 10" | wc -l ) -gt 0 ]]; then
-	TOMCAT="tomcat10"
-	elif [[ $( apt-cache show tomcat9 2> /dev/null | egrep "Version: 9" | wc -l ) -gt 0 ]]; then
-	TOMCAT="tomcat9"
-else
-	echo -e "${RED}Failed. Can't find Tomcat package${GREY}" 1>&2
-	exit 1
-fi
+### Fail2ban Guacamole security policy option ###
 
 # Create the Guacamole jail.local policy template
 cat > /tmp/fail2ban.conf <<EOF
@@ -272,13 +262,13 @@ echo -e "${LGREEN}Guacamole security policy applied${GREY}\n-${SED_NETADDR}are w
 echo
 fi
 
-# Fail2ban NGINX security policy option 
+### Fail2ban NGINX security policy option ###
 if [ "${FAIL2BAN_NGINX}" = true ]; then
 echo -e "${LGREEN}Nginx Fail2ban policy not implemented yet.${GREY}"
 echo
 fi
 
-# Start Fail2ban SSH security policy option 
+### Start Fail2ban SSH security policy option ###
 if [ "${FAIL2BAN_SSH}" = true ]; then
 echo -e "${LGREEN}SSH Fail2ban policy not implemented yet..${GREY}"
 echo

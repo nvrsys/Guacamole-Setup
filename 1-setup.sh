@@ -461,16 +461,16 @@ if [ $? -ne 0 ]; then
 	echo -e "${LGREEN}Guacamole installation complete\n- Visit: http://${PROXY_SITE}:8080/guacamole\n- Default login (user/pass): guacadmin/guacadmin\n${LYELLOW}***Be sure to change the password***.${GREY}"
 fi
 
-
-#######################################################################################################################
-# Start optional setup actions   ######################################################################################
-#######################################################################################################################
-
 # Duo Settings reminder
 if [ $INSTALL_DUO == "true" ]; then
 	echo -e "${YELLOW}Reminder: Duo requires extra account specific config before you can log in to Guacamole."
 	echo -e "See https://guacamole.apache.org/doc/${GUAC_VERSION}/gug/duo-auth.html"
 fi
+
+
+#######################################################################################################################
+# Start optional setup actions   ######################################################################################
+#######################################################################################################################
 
 # Install Nginx reverse proxy front end to Guacamole if this setup option is selected
 if [ "${INSTALL_NGINX}" = true ]; then
