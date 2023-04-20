@@ -55,10 +55,10 @@ fi
 # Download Guacamole Server
 echo
 echo -e "${GREY}Downloading Guacamole source files..."
-wget -q --show-progress -O guacamole-server-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}/source/guacamole-server-${GUAC_VERSION}.tar.gz
+wget -q --show-progress -O guacamole-server-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}source/guacamole-server-${GUAC_VERSION}.tar.gz
 if [ $? -ne 0 ]; then
 	echo -e "${RED}Failed to download guacamole-server-${GUAC_VERSION}.tar.gz" 1>&2
-	echo -e "${GUAC_SOURCE_LINK}/source/guacamole-server-${GUAC_VERSION}.tar.gz${GREY}"
+	echo -e "${GUAC_SOURCE_LINK}source/guacamole-server-${GUAC_VERSION}.tar.gz${GREY}"
 	exit 1
 	else
 	tar -xzf guacamole-server-${GUAC_VERSION}.tar.gz
@@ -66,19 +66,19 @@ fi
 echo -e "${LGREEN}Downloaded guacamole-server-${GUAC_VERSION}.tar.gz${GREY}"
 
 # Download Guacamole Client
-wget -q --show-progress -O guacamole-${GUAC_VERSION}.war ${GUAC_SOURCE_LINK}/binary/guacamole-${GUAC_VERSION}.war
+wget -q --show-progress -O guacamole-${GUAC_VERSION}.war ${GUAC_SOURCE_LINK}binary/guacamole-${GUAC_VERSION}.war
 if [ $? -ne 0 ]; then
 	echo -e "${RED}Failed to download guacamole-${GUAC_VERSION}.war" 1>&2
-	echo -e "${GUAC_SOURCE_LINK}/binary/guacamole-${GUAC_VERSION}.war${GREY}"
+	echo -e "${GUAC_SOURCE_LINK}binary/guacamole-${GUAC_VERSION}.war${GREY}"
 	exit 1
 fi
 echo -e "${LGREEN}Downloaded guacamole-${GUAC_VERSION}.war${GREY}"
 
 # Download Guacamole authentication extensions
-wget -q --show-progress -O guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}/binary/guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz
+wget -q --show-progress -O guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}binary/guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz
 if [ $? -ne 0 ]; then
 	echo -e "${RED}Failed to download guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz" 1>&2
-	echo -e "${GUAC_SOURCE_LINK}/binary/guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz"
+	echo -e "${GUAC_SOURCE_LINK}binary/guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz"
 	exit 1
 	else
 	tar -xzf guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz
@@ -87,10 +87,10 @@ echo -e "${LGREEN}Downloaded guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz${GREY}"
 
 # Download TOTP extension
 if [ "${INSTALL_TOTP}" = true ]; then
-	wget -q --show-progress -O guacamole-auth-totp-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}/binary/guacamole-auth-totp-${GUAC_VERSION}.tar.gz
+	wget -q --show-progress -O guacamole-auth-totp-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}binary/guacamole-auth-totp-${GUAC_VERSION}.tar.gz
 	if [ $? -ne 0 ]; then
 	echo -e "${RED}Failed to download guacamole-auth-totp-${GUAC_VERSION}.tar.gz" 1>&2
-	echo -e "${GUAC_SOURCE_LINK}/binary/guacamole-auth-totp-${GUAC_VERSION}.tar.gz"
+	echo -e "${GUAC_SOURCE_LINK}binary/guacamole-auth-totp-${GUAC_VERSION}.tar.gz"
 	exit 1
 	else
 	tar -xzf guacamole-auth-totp-${GUAC_VERSION}.tar.gz
@@ -100,10 +100,10 @@ fi
 
 # Download DUO extension
 if [ "${INSTALL_DUO}" = true ]; then
-	wget -q --show-progress -O guacamole-auth-duo-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}/binary/guacamole-auth-duo-${GUAC_VERSION}.tar.gz
+	wget -q --show-progress -O guacamole-auth-duo-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}binary/guacamole-auth-duo-${GUAC_VERSION}.tar.gz
 	if [ $? -ne 0 ]; then
 	echo -e "${RED}Failed to download guacamole-auth-duo-${GUAC_VERSION}.tar.gz" 1>&2
-	echo -e "${GUAC_SOURCE_LINK}/binary/guacamole-auth-duo-${GUAC_VERSION}.tar.gz"
+	echo -e "${GUAC_SOURCE_LINK}binary/guacamole-auth-duo-${GUAC_VERSION}.tar.gz"
 	exit 1
 	else
 	tar -xzf guacamole-auth-duo-${GUAC_VERSION}.tar.gz
@@ -113,10 +113,10 @@ fi
 
 # Download LDAP extension
 if [ "${INSTALL_LDAP}" = true ]; then
-	wget -q --show-progress -O guacamole-auth-ldap-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}/binary/guacamole-auth-ldap-${GUAC_VERSION}.tar.gz
+	wget -q --show-progress -O guacamole-auth-ldap-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}binary/guacamole-auth-ldap-${GUAC_VERSION}.tar.gz
 	if [ $? -ne 0 ]; then
 	echo -e "${RED}Failed to download guacamole-auth-ldap-${GUAC_VERSION}.tar.gz" 1>&2
-	echo -e "${GUAC_SOURCE_LINK}/binary/guacamole-auth-ldap-${GUAC_VERSION}.tar.gz"
+	echo -e "${GUAC_SOURCE_LINK}binary/guacamole-auth-ldap-${GUAC_VERSION}.tar.gz"
 	exit 1
 	else
 	tar -xzf guacamole-auth-ldap-${GUAC_VERSION}.tar.gz
