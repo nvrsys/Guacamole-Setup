@@ -8,6 +8,16 @@
 
 clear
 
+# Find the correct tomcat package (with a little future proofing)
+if [[ $( apt-cache show tomcat10 2> /dev/null | egrep "Version: 10" | wc -l ) -gt 0 ]]; then
+	TOMCAT="tomcat10"
+	elif [[ $( apt-cache show tomcat9 2> /dev/null | egrep "Version: 9" | wc -l ) -gt 0 ]]; then
+	TOMCAT="tomcat9"
+else
+	echo -e "${RED}Failed. Can't find Tomcat package${GREY}" 1>&2
+	exit 1
+fi
+
 cp extensions/guacamole-auth-duo-1.5.0.jar /etc/guacamole/extensions
 chmod 664 /etc/guacamole/extensions/guacamole-auth-duo-1.5.0.jar
 echo "# duo-integration-key: " >> /etc/guacamole/guacamole.properties
@@ -15,7 +25,7 @@ echo "# duo-secret-key: " >> /etc/guacamole/guacamole.properties
 echo "# duo-api-hostname: " >> /etc/guacamole/guacamole.properties
 echo "# duo-application-key: " >> /etc/guacamole/guacamole.properties
 
-systemctl restart tomcat9
+systemctl restart ${TOMCAT}
 sudo systemctl restart guacd
 
 echo "Done. You must now set up your online Duo account with a new 'Web SDK' application."

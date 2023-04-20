@@ -5,7 +5,7 @@
 # April 2023
 #######################################################################################################################
 
-	YELLOW='\033[0;33m'
+YELLOW='\033[0;33m'
 
 #Create the special directory for guacd ssl certfifacte and key.
 sudo mkdir /etc/guacamole/ssl
