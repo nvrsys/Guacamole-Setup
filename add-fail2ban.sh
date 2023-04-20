@@ -266,7 +266,7 @@ rm -f /tmp/netaddr.txt
 rm -f /tmp/fail2ban.update
 
 # Done
-echo -e "${LGREEN}Guacamole security policy applied${GREY}\n-${SED_NETADDR}are whitelisted from all IP bans.\n- To alter the whitelist edit /etc/fail2ban/jail.local & restart fail2ban"
+echo -e "${LGREEN}Guacamole security policy applied${GREY}\n-${SED_NETADDR}are whitelisted from all IP bans.\n- To alter the whitelist edit /etc/fail2ban/jail.local & sudo systemctl restart fail2ban"
 echo
 fi
 
