@@ -141,14 +141,14 @@ wget -q --show-progress ${GITHUB}4a-install-ssl-self-signed-nginx.sh -O 4a-insta
 wget -q --show-progress ${GITHUB}4b-install-ssl-letsencrypt-nginx.sh -O 4b-install-ssl-letsencrypt-nginx.sh
 
 # Grab Guacamole auth extension config scripts
-wget -q --show-progress ${GITHUB}add-mfa-duo.sh -O add-auth-duo.sh
+wget -q --show-progress ${GITHUB}add-auth-duo.sh -O add-auth-duo.sh
 wget -q --show-progress ${GITHUB}add-auth-ldap.sh -O add-auth-ldap.sh
-wget -q --show-progress ${GITHUB}add-mfa-totp.sh -O add-auth-totp.sh
+wget -q --show-progress ${GITHUB}add-auth-totp.sh -O add-auth-totp.sh
 
 
 # Grab backup and security hardening scripts
 wget -q --show-progress ${GITHUB}backup-guac.sh -O backup-guac.sh
-wget -q --show-progress ${GITHUB}add-ssl-guac-to-gaucd-ssl.sh -O add-ssl-guac-to-gaucd-ssl.sh
+wget -q --show-progress ${GITHUB}add-ssl-guac-gaucd.sh -O add-ssl-guac-gaucd.sh
 wget -q --show-progress ${GITHUB}add-fail2ban.sh -O add-fail2ban.sh
 
 # Grab a (customisable) branding extension

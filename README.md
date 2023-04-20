@@ -39,7 +39,7 @@
 	6. add-auth-duo.sh 					- Adds the Duo MFA extensions to Guacamole if not selected at install (optional)
 	7. add-auth-ldap.sh 				- Adds the LDAP Active Directory extension to Guacamole and guides the specific LDAP setup requirements (optional)
 	8. add-auth-totp.sh 		 		- Adds the TOTP MFA extension to Guacamole if not selected at install (optional)
-	9. add-ssl-guac-to-gaucd.sh 		- A hardening script to wrap an extra ssl layer between the guacd server and the Guacamole client (optional)
+	9. add-ssl-guac-gaucd.sh 		- A hardening script to wrap an extra ssl layer between the guacd server and the Guacamole client (optional)
 	10. add-fail2ban.sh			- Adds and configures fail2ban to secure Guacamole against brute force attacks
 	11. backup-guacamole.sh			- A simple Guacamole backup script
 	12. branding.jar			- An extension to customise the Guacomole login screen (optional) 
