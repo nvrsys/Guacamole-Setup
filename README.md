@@ -36,9 +36,9 @@
 	3. 3-install-nginx.sh 			- Installs Nginx and auto configures as a front end for Guacamole (optional)
 	4. 4a-install-ssl-self-signed-nginx.sh 	- Configures self signed ssl certs for Nginx (optional)
 	5. 4b-install-ssl-letsencrypt-nginx.sh 	- Installs and configures Let's Encrypt with Guacamole and Nginx (optional)
-	6. add-duo-mfa-guacamole.sh 		- Adds the Duo MFA extensions to Guacamole if not selected at install (optional)
-	7. add-ldap-auth-guacamole.sh 		- Adds the LDAP Active Directory extension to Guacamole and guides the specific LDAP setup requirements (optional)
-	8. add-totp-mfa-guacamole.sh  		- Adds the TOTP MFA extension to Guacamole if not selected at install (optional)
+	6. add-auth-duo.sh 					- Adds the Duo MFA extensions to Guacamole if not selected at install (optional)
+	7. add-auth-ldap.sh 				- Adds the LDAP Active Directory extension to Guacamole and guides the specific LDAP setup requirements (optional)
+	8. add-auth-totp.sh 		 		- Adds the TOTP MFA extension to Guacamole if not selected at install (optional)
 	9. add-ssl-guac-to-gaucd.sh 		- A hardening script to wrap an extra ssl layer between the guacd server and the Guacamole client (optional)
 	10. add-fail2ban.sh			- Adds and configures fail2ban to secure Guacamole against brute force attacks
 	11. backup-guacamole.sh			- A simple Guacamole backup script
