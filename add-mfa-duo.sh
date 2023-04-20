@@ -34,8 +34,12 @@ fi
 
 GUAC_VERSION="1.5.0"
 TOMCAT="tomcat9"
+GUAC_SOURCE_LINK="http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUAC_VERSION}"
 
-cp extensions/guacamole-auth-duo-${GUAC_VERSION}.jar /etc/guacamole/extensions
+echo
+wget -q --show-progress -O guacamole-auth-duo-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}/binary/guacamole-auth-duo-${GUAC_VERSION}.tar.gz
+echo
+mv guacamole-auth-duo-${GUAC_VERSION}.jar /etc/guacamole/extensions
 chmod 664 /etc/guacamole/extensions/guacamole-auth-duo-${GUAC_VERSION}.jar
 echo "# duo-integration-key: " >> /etc/guacamole/guacamole.properties
 echo "# duo-secret-key: " >> /etc/guacamole/guacamole.properties
