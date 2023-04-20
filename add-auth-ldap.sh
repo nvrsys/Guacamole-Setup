@@ -27,6 +27,7 @@ NC='\033[0m' #No Colour
 clear
 
 # Check if user is root or sudo
+
 if ! [ $( id -u ) = 0 ]; then
 	echo -e "${LGREEN}Please run this script as sudo or root${NC}" 1>&2
 	exit 1
@@ -35,8 +36,7 @@ fi
 GUAC_VERSION="1.5.0"
 TOMCAT="tomcat9"
 GUAC_SOURCE_LINK="http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUAC_VERSION}"
-
-
+echo
 echo -e "${YELLOW}Have you updated this script to reflect your Active Directory settings?${NC}"
 
 read -p "Do you want to proceed? (yes/no) " yn
@@ -50,6 +50,7 @@ esac
 
 echo
 wget -q --show-progress -O guacamole-auth-ldap-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}/binary/guacamole-auth-ldap-${GUAC_VERSION}.tar.gz
+tar -xzf guacamole-auth-ldap-${GUAC_VERSION}.tar.gz
 echo
 cat <<EOF | sudo tee -a /etc/guacamole/guacamole.properties
 ldap-hostname: dc1.yourdomain.com dc2.yourdomain.com
@@ -68,7 +69,9 @@ sudo mv guacamole-auth-ldap-${GUAC_VERSION}.jar /etc/guacamole/extensions
 sudo chmod 664 /etc/guacamole/extensions/guacamole-auth-ldap-${GUAC_VERSION}.jar
 sudo systemctl restart ${TOMCAT}
 sudo systemctl restart guacd
+
+rm -xzf guacamole-auth-ldap-${GUAC_VERSION}.tar.gz
+
 echo
 echo "Done!"
-# Done
 echo -e ${NC}

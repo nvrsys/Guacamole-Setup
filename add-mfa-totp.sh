@@ -26,8 +26,8 @@ NC='\033[0m' #No Colour
 
 clear
 
-# Check if user is root or sudo
 if ! [ $( id -u ) = 0 ]; then
+	echo
 	echo -e "${LGREEN}Please run this script as sudo or root${NC}" 1>&2
 	exit 1
 fi
@@ -35,13 +35,14 @@ fi
 GUAC_VERSION="1.5.0"
 TOMCAT="tomcat9"
 GUAC_SOURCE_LINK="http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUAC_VERSION}"
-
 echo
 wget -q --show-progress -O guacamole-auth-totp-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}/binary/guacamole-auth-totp-${GUAC_VERSION}.tar.gz
-echo
+tar -xzf guacamole-auth-totp-${GUAC_VERSION}.tar.gz
 mv guacamole-auth-totp-${GUAC_VERSION}.jar /etc/guacamole/extensions
 chmod 664 /etc/guacamole/extensions/guacamole-auth-totp-${GUAC_VERSION}.jar
 systemctl restart ${TOMCAT}
 systemctl restart guacd
+
 echo
 echo "Done!"
+echo -e ${NC}

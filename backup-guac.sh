@@ -26,8 +26,8 @@ NC='\033[0m' #No Colour
 
 clear
 
-# Check if user is root or sudo
 if ! [ $( id -u ) = 0 ]; then
+	echo
 	echo -e "${LGREEN}Please run this script as sudo or root${NC}" 1>&2
 	exit 1
 fi
@@ -70,3 +70,7 @@ fi
 
 # Protect disk space and remove backups older than {BACKUP_RETAIN_DAYS} days
 find ${DB_BACKUP_PATH} -mtime +${BACKUP_RETAIN_DAYS} -delete
+
+echo
+echo "Done!"
+echo -e ${NC}
