@@ -72,7 +72,7 @@ sudo chmod 664 /etc/guacamole/extensions/guacamole-auth-ldap-${GUAC_VERSION}.jar
 sudo systemctl restart ${TOMCAT}
 sudo systemctl restart guacd
 
-rm -xzf guacamole-auth-ldap-${GUAC_VERSION}.tar.gz
+rm -rf guacamole-*
 
 echo
 echo "Done!"

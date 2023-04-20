@@ -43,6 +43,8 @@ chmod 664 /etc/guacamole/extensions/guacamole-auth-totp-${GUAC_VERSION}.jar
 systemctl restart ${TOMCAT}
 systemctl restart guacd
 
+rm -rf guacamole-*
+
 echo
 echo "Done!"
 echo -e ${NC}

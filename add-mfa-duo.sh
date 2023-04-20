@@ -61,7 +61,7 @@ echo "duo-application-key: (this is locally created - run 'pwgen 40 1' to manual
 echo
 echo "Then restart Guacamole with sudo systemctl restart tomcat9"
 
-rm guacamole-auth-duo-${GUAC_VERSION}.tar.gz
+rm -rf guacamole-*
 
 echo
 echo "Done!"
