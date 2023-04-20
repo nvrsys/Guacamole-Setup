@@ -38,7 +38,7 @@ GUAC_SOURCE_LINK="http://apache.org/dyn/closer.cgi?action=download&filename=guac
 echo
 wget -q --show-progress -O guacamole-auth-totp-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}/binary/guacamole-auth-totp-${GUAC_VERSION}.tar.gz
 tar -xzf guacamole-auth-totp-${GUAC_VERSION}.tar.gz
-mv guacamole-auth-totp-${GUAC_VERSION}.jar /etc/guacamole/extensions
+mv -f guacamole-auth-totp-${GUAC_VERSION}/guacamole-auth-totp-${GUAC_VERSION}.jar /etc/guacamole/extensions/
 chmod 664 /etc/guacamole/extensions/guacamole-auth-totp-${GUAC_VERSION}.jar
 systemctl restart ${TOMCAT}
 systemctl restart guacd

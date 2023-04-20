@@ -39,7 +39,7 @@ echo
 wget -q --show-progress -O guacamole-auth-duo-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}/binary/guacamole-auth-duo-${GUAC_VERSION}.tar.gz
 tar -xzf guacamole-auth-duo-${GUAC_VERSION}.tar.gz
 echo
-mv guacamole-auth-duo-${GUAC_VERSION}.jar /etc/guacamole/extensions
+mv -f guacamole-auth-duo-${GUAC_VERSION}/guacamole-auth-duo-${GUAC_VERSION}.jar /etc/guacamole/extensions/
 chmod 664 /etc/guacamole/extensions/guacamole-auth-duo-${GUAC_VERSION}.jar
 echo "# duo-integration-key: " >> /etc/guacamole/guacamole.properties
 echo "# duo-secret-key: " >> /etc/guacamole/guacamole.properties

@@ -29,6 +29,7 @@ clear
 # Check if user is root or sudo
 
 if ! [ $( id -u ) = 0 ]; then
+	echo
 	echo -e "${LGREEN}Please run this script as sudo or root${NC}" 1>&2
 	exit 1
 fi
@@ -41,7 +42,7 @@ echo -e "${YELLOW}Have you updated this script to reflect your Active Directory 
 
 read -p "Do you want to proceed? (yes/no) " yn
 case $yn in 
-	y ) echo Adding the below config to /etc/guacamole/guacamole.properties ;;
+	y ) echo Beginning LDAP auth config...;;
 	n ) echo exiting...;
 		exit;;
 	* ) echo invalid response;
@@ -52,6 +53,7 @@ echo
 wget -q --show-progress -O guacamole-auth-ldap-${GUAC_VERSION}.tar.gz ${GUAC_SOURCE_LINK}/binary/guacamole-auth-ldap-${GUAC_VERSION}.tar.gz
 tar -xzf guacamole-auth-ldap-${GUAC_VERSION}.tar.gz
 echo
+echo Adding the below config to /etc/guacamole/guacamole.properties 
 cat <<EOF | sudo tee -a /etc/guacamole/guacamole.properties
 ldap-hostname: dc1.yourdomain.com dc2.yourdomain.com
 ldap-port: 389
@@ -65,7 +67,7 @@ ldap-user-search-filter:(objectClass=user)(!(objectCategory=computer))
 ldap-max-search-results:200
 EOF
 
-sudo mv guacamole-auth-ldap-${GUAC_VERSION}.jar /etc/guacamole/extensions
+mv -f guacamole-auth-ldap-${GUAC_VERSION}/guacamole-auth-ldap-${GUAC_VERSION}.jar /etc/guacamole/extensions/
 sudo chmod 664 /etc/guacamole/extensions/guacamole-auth-ldap-${GUAC_VERSION}.jar
 sudo systemctl restart ${TOMCAT}
 sudo systemctl restart guacd
