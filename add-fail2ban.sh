@@ -6,6 +6,14 @@
 # April 2023
 #######################################################################################################################
 
+clear
+
+# Check if user is root or sudo
+if ! [ $( id -u ) = 0 ]; then
+	echo -e "${LGREEN}Please run this script as sudo or root${NC}" 1>&2
+	exit 1
+fi
+
 # Prepare text output colours
 GREY='\033[0;37m'
 DGREY='\033[0;90m'
@@ -24,14 +32,6 @@ MAGENTA='\033[0;35m'
 LMAGENTA='\033[0;95m'
 NC='\033[0m' #No Colour
 
-clear
-
-# Check if user is root or sudo
-if ! [ $( id -u ) = 0 ]; then
-	echo -e "${LGREEN}Please run this script as sudo or root${NC}" 1>&2
-	exit 1
-fi
-
 # Initialise variables
 FAIL2BAN_BASE=""
 FAIL2BAN_GUAC=""
@@ -44,7 +44,10 @@ rm -f /tmp/ip_list.txt
 rm -f /tmp/netaddr.txt
 rm -f /tmp/fail2ban.update
 
-####################### Start installation prompts #######################
+
+#######################################################################################################################
+# Begin install menu prompts ##########################################################################################
+#######################################################################################################################
 
 # Prompt to install fail2ban base app, default of yes
 if [[ -z ${FAIL2BAN_BASE} ]]; then
@@ -90,9 +93,11 @@ if [[ -z ${FAIL2BAN_SSH} ]] && [[ "${FAIL2BAN_BASE}" = true ]]; then
 	FAIL2BAN_SSH=false
 	fi
 fi
-######################## End installation prompts ########################
 
-############ Start Fail2ban base application install option ##############
+
+#######################################################################################################################
+# Start fail2ban global setup #########################################################################################
+#######################################################################################################################
 
 # Install base fail2ban base application (no policy defined yet)
 if [ "${FAIL2BAN_BASE}" = true ]; then
@@ -210,10 +215,12 @@ echo -e "${LGREEN}Fail2ban setup cancelled.${GREY}"
 
 fi
 
-############## End Fail2ban base application install option ##############
 
+#######################################################################################################################
+# Start optional setup actions   ######################################################################################
+#######################################################################################################################
 
-########### Start Fail2ban Guacamole security policy option ##############
+# Fail2ban Guacamole security policy option 
 
 if [ "${FAIL2BAN_GUAC}" = true ]; then
 # Find the correct tomcat package (with a little future proofing) so we can configure the fail2ban log path
@@ -265,13 +272,13 @@ echo -e "${LGREEN}Guacamole security policy applied${GREY}\n-${SED_NETADDR}are w
 echo
 fi
 
-############## Start Fail2ban NGINX security policy option ###############
+# Fail2ban NGINX security policy option 
 if [ "${FAIL2BAN_NGINX}" = true ]; then
 echo -e "${LGREEN}Nginx Fail2ban policy not implemented yet.${GREY}"
 echo
 fi
 
-############### Start Fail2ban SSH security policy option ################
+# Start Fail2ban SSH security policy option 
 if [ "${FAIL2BAN_SSH}" = true ]; then
 echo -e "${LGREEN}SSH Fail2ban policy not implemented yet..${GREY}"
 echo

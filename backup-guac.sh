@@ -1,9 +1,18 @@
 #!/bin/bash
 #######################################################################################################################
 # Guacamole MySQL Database Backup
+# For Ubuntu / Debian / Raspian
 # David Harrop
 # April 2023
 #######################################################################################################################
+
+clear
+
+# Check if user is root or sudo
+if ! [ $( id -u ) = 0 ]; then
+	echo "Please run this script as sudo or root" 1>&2
+	exit 1
+fi
 
 export PATH=/bin:/usr/bin:/usr/local/bin
 TODAY=`date +%Y-%m-%d`

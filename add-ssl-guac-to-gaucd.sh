@@ -1,9 +1,18 @@
 #!/bin/bash
 #######################################################################################################################
 # Harden Guacd <-> Guac client traffic in SSL wrapper
+# For Ubuntu / Debian / Raspian
 # David Harrop
 # April 2023
 #######################################################################################################################
+
+clear
+
+# Check if user is root or sudo
+if ! [ $( id -u ) = 0 ]; then
+	echo "Please run this script as sudo or root" 1>&2
+	exit 1
+fi
 
 YELLOW='\033[0;33m'
 

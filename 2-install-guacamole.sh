@@ -10,12 +10,6 @@
 
 clear
 
-# Check if user is root or sudo
-if ! [ $( id -u ) = 0 ]; then
-	echo "Please run this script as sudo or root" 1>&2
-	exit 1
-fi
-
 # Pre-seed MySQL install values
 if [ "${INSTALL_MYSQL}" = true ]; then
 debconf-set-selections <<< "mysql-server mysql-server/root_password password ${MYSQL_ROOT_PWD}"

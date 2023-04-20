@@ -8,6 +8,14 @@
 
 clear
 
+# Check if user is root or sudo
+if ! [ $( id -u ) = 0 ]; then
+	echo "Please run this script as sudo or root" 1>&2
+	exit 1
+fi
+
+GUAC_VERSION="1.5.0"
+
 # Find the correct tomcat package (with a little future proofing)
 if [[ $( apt-cache show tomcat10 2> /dev/null | egrep "Version: 10" | wc -l ) -gt 0 ]]; then
 	TOMCAT="tomcat10"
@@ -18,8 +26,8 @@ else
 	exit 1
 fi
 
-cp extensions/guacamole-auth-totp-1.5.0.jar /etc/guacamole/extensions
-chmod 664 /etc/guacamole/extensions/guacamole-auth-totp-1.5.0.jar
+cp extensions/guacamole-auth-totp-${GUAC_VERSION}.jar /etc/guacamole/extensions
+chmod 664 /etc/guacamole/extensions/guacamole-auth-totp-${GUAC_VERSION}.jar
 systemctl restart ${TOMCAT}
 systemctl restart guacd
 echo

@@ -11,7 +11,6 @@
 # to provide certifacate outputs correctly. Runing just as sudo will save certs to sudo's home path
 # sudo -E ./4a-install-ssl-self-signed-nginx.sh [your-dns-name.local] [3650]
 
-
 # Hack to assist with displaying "$" symbols and " ' quotes in a (cut/pasteable) bash screen output format for Nginx configs
 SHOWASTEXT1='$mypwd'
 SHOWASTEXT2='"Cert:\LocalMachine\Root"'

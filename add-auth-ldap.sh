@@ -5,8 +5,16 @@
 # David Harrop
 # April 2023
 #######################################################################################################################
+
 clear
 
+# Check if user is root or sudo
+if ! [ $( id -u ) = 0 ]; then
+	echo "Please run this script as sudo or root" 1>&2
+	exit 1
+fi
+
+GUAC_VERSION="1.5.0"
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
@@ -45,8 +53,8 @@ ldap-user-base-dn: OU=SomeOU,DC=domain,DC=com
 ldap-user-search-filter:(objectClass=user)(!(objectCategory=computer))
 ldap-max-search-results:200
 EOF
-sudo cp extensions/guacamole-auth-ldap-1.5.0.jar /etc/guacamole/extensions
-sudo chmod 664 /etc/guacamole/extensions/guacamole-auth-ldap-1.5.0.jar
+sudo cp extensions/guacamole-auth-ldap-${GUAC_VERSION}.jar /etc/guacamole/extensions
+sudo chmod 664 /etc/guacamole/extensions/guacamole-auth-ldap-${GUAC_VERSION}.jar
 sudo systemctl restart ${TOMCAT}
 sudo systemctl restart guacd
 echo
