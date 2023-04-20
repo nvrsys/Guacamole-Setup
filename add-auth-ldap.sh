@@ -38,7 +38,7 @@ GUAC_VERSION="1.5.0"
 TOMCAT="tomcat9"
 GUAC_SOURCE_LINK="http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUAC_VERSION}"
 echo
-echo -e "${YELLOW}Have you updated this script to reflect your Active Directory settings?${NC}"
+echo -e "${LYELLOW}Have you updated this script to reflect your Active Directory settings?${NC}"
 
 read -p "Do you want to proceed? (yes/no) " yn
 case $yn in 

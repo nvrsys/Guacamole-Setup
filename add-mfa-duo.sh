@@ -41,28 +41,27 @@ tar -xzf guacamole-auth-duo-${GUAC_VERSION}.tar.gz
 echo
 mv -f guacamole-auth-duo-${GUAC_VERSION}/guacamole-auth-duo-${GUAC_VERSION}.jar /etc/guacamole/extensions/
 chmod 664 /etc/guacamole/extensions/guacamole-auth-duo-${GUAC_VERSION}.jar
-echo "# duo-integration-key: " >> /etc/guacamole/guacamole.properties
-echo "# duo-secret-key: " >> /etc/guacamole/guacamole.properties
-echo "# duo-api-hostname: " >> /etc/guacamole/guacamole.properties
-echo "# duo-application-key: " >> /etc/guacamole/guacamole.properties
+echo "duo-integration-key: " >> /etc/guacamole/guacamole.properties
+echo "duo-secret-key: " >> /etc/guacamole/guacamole.properties
+echo "duo-api-hostname: " >> /etc/guacamole/guacamole.properties
+echo "duo-application-key: " >> /etc/guacamole/guacamole.properties
 
 systemctl restart ${TOMCAT}
 sudo systemctl restart guacd
 
-echo "Done. You must now set up your online Duo account with a new 'Web SDK' application."
+echo "${LYELLOW}You must now set up your online Duo account with a new 'Web SDK' application."
 echo
-echo "Copy the approriate API settings from your Duo account into /etc/guacamole/guacamole.properties in the below format."
-echo "Be VERY careful to avoid extra spaces or characters when pasting!"
+echo "Next you must copy the API settings from your Duo account into /etc/guacamole/guacamole.properties in the EXACT below format."
+echo "Be VERY careful to avoid extra trailing spaces or other line feed characters when pasting!${GREY}"
 echo
 echo "duo-integration-key: ??????????"
 echo "duo-api-hostname: ??????????"
 echo "duo-secret-key: ??????????"
 echo "duo-application-key: (this is locally created - run 'pwgen 40 1' to manually generate this 40 char random value)"
 echo
-echo "Then restart Guacamole with sudo systemctl restart tomcat9"
+echo "Once this change is complete, restart Guacamole with sudo systemctl restart tomcat9"
 
 rm -rf guacamole-*
 
 echo
-echo "Done!"
 echo -e ${NC}

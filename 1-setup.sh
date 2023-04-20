@@ -115,8 +115,8 @@ INSTALL_LETS_ENCRYPT=""		# Add Lets Encrypt public SSL support for Nginx (self s
 LE_DNS_NAME=""				# Public DNS name to bind with Lets Encrypt certificates
 LE_EMAIL=""					# Webmaster/admin email for Lets Encrypt
 
-# We need to try and grab a default value for the local FQDN. Domain search suffix is being used
-# as this is the simplest common default value available between recent Debian and Ubuntu flavours. YMMV.
+# We need to try and grab a default value for the local FQDN. Domain search suffix is used in this case becausue
+# this is the simplest common default resolv.conf value available between recent Debian and Ubuntu flavours. YMMV.
 DOMAIN_SEARCH_SUFFIX=$(grep search /etc/resolv.conf | grep -v "#" | sed  's/'search[[:space:]]'//')
 DEFAULT_FQDN=$HOSTNAME.$DOMAIN_SEARCH_SUFFIX
 
@@ -131,7 +131,7 @@ fi
 # Download github setup scripts #######################################################################################
 #######################################################################################################################
 
-# Download config scripts and setup items (snapshot version from github)...
+# Download config scripts and setup items from github
 cd $DOWNLOAD_DIR
 echo
 echo -e "${GREY}Downloading setup files...${DGREY}"
@@ -157,17 +157,15 @@ chmod +x *.sh
 
 # Pause to optionally customise downloaded scripts before starting install
 echo -e "${LYELLOW}"
-read -t 15 -p $'Script paused for (optional) tweaking of scripts before running. Enter to Continue... (Script will auto resume after 15 sec.)\n'
-
-
+read -t 15 -p $'Script paused for (optional) customisation of install scripts before running. Enter to Continue... (Script will auto resume after 15 sec.)\n'
 
 
 #######################################################################################################################
 # Begin install menu prompts ##########################################################################################
 #######################################################################################################################
 
-# We need a default hostname avaiable to insert if we do not want to change the name. This approach allows the user to simply
-# hit enter without a blank entry into the /etc/hosts file. 
+# We need a default hostname avaiable to insert if we do not want to change the name. This approach allows the user to 
+# simply hit enter at the prompt without this creating a blank entry into the /etc/hosts file.
 clear
 echo
 if [[ -z ${SERVER_NAME} ]]; then
@@ -189,7 +187,7 @@ if [[ -z ${SERVER_NAME} ]]; then
 	fi
 fi
 
-# Diplay status of script customisations at start of install
+# For convenience & sanity check, diplay status of preset script options at start of install
 echo -e "${GREY}Setup presets currently enabled (blanks = will prompt):"
 echo -e "${DGREY}Server host name\t= ${GREY}${SERVER_NAME}"
 echo -e "${DGREY}Install MYSQL locally\t= ${GREY}${INSTALL_MYSQL}"
@@ -430,7 +428,7 @@ fi
 # Start global setup actions  #########################################################################################
 #######################################################################################################################
 
-# Ubuntu and Debian each require different dependency packages. Below works ok from Ubuntu 18.04 / Debian 10 and above...
+# Ubuntu and Debian each require different dependency packages. Below works ok from Ubuntu 18.04 / Debian 10 and above.
 echo -e "${GREY}Checking linux distro specific dependencies..."
 if [[ $OS_FLAVOUR == "ubuntu" ]] || [[ $OS_FLAVOUR == "ubuntu"* ]]; then # potentially expand out distro choices here
 	JPEGTURBO="libjpeg-turbo8-dev"
@@ -447,7 +445,8 @@ else
 	echo -e "${LGREEN}OK${GREY}"
 fi
 
-# Pass the relevant variable selections to child install scripts below (a more robust method as export seems unreliable in this instance)
+# Pass the relevant variable selections to child install scripts below
+# (This is a more robust method than export, which is unreliable in this instance)
 COLOUR_VAR="GREY=$GREY DGREY=$DGREY GREYB=$GREYB RED=$RED LRED=$LRED GREEN=$GREEN LGREEN=$LGREEN YELLOW=$YELLOW LYELLOW=$LYELLOW BLUE=$BLUE LBLUE=$LBLUECYAN=$CYAN LCYAN=$LCYAN MAGENTA=$MAGENTA LMAGENTA=$LMAGENTA NC=$NC"
 GUAC_VAR="JPEGTURBO=$JPEGTURBO LIBPNG=$LIBPNG GUAC_VERSION=$GUAC_VERSION MYSQLJCON=$MYSQLJCON GUAC_SOURCE_LINK=$GUAC_SOURCE_LINK TOMCAT_VERSION=$TOMCAT_VERSION LOG_LOCATION=$LOG_LOCATION INSTALL_MYSQL=$INSTALL_MYSQL SECURE_MYSQL=$SECURE_MYSQL MYSQL_HOST=$MYSQL_HOST MYSQL_PORT=$MYSQL_PORT GUAC_DB=$GUAC_DB GUAC_USER=$GUAC_USER GUAC_PWD=$GUAC_PWD MYSQL_ROOT_PWD=$MYSQL_ROOT_PWD INSTALL_TOTP=$INSTALL_TOTP INSTALL_DUO=$INSTALL_DUO INSTALL_LDAP=$INSTALL_LDAP"
 NGINX_VAR="TOMCAT_VERSION=$TOMCAT_VERSION LOG_LOCATION=$LOG_LOCATION GUAC_URL=$GUAC_URL PROXY_SITE=$PROXY_SITE"
@@ -463,7 +462,7 @@ if [ $? -ne 0 ]; then
 	echo -e "${LGREEN}Guacamole installation complete\n- Visit: http://${PROXY_SITE}:8080/guacamole\n- Default login (user/pass): guacadmin/guacadmin\n${LYELLOW}***Be sure to change the password***.${GREY}"
 fi
 
-# Duo Settings reminder
+# Duo Settings reminder that if due is slected you cant login to Guacamole at all until this extension is fully configured
 if [ $INSTALL_DUO == "true" ]; then
 	echo -e "${YELLOW}Reminder: Duo requires extra account specific config before you can log in to Guacamole."
 	echo -e "See https://guacamole.apache.org/doc/${GUAC_VERSION}/gug/duo-auth.html"
@@ -474,20 +473,20 @@ fi
 # Start optional setup actions   ######################################################################################
 #######################################################################################################################
 
-# Install Nginx reverse proxy front end to Guacamole if this setup option is selected
+### Install Nginx reverse proxy front end to Guacamole if option is selected
 if [ "${INSTALL_NGINX}" = true ]; then
 	sudo $NGINX_VAR $COLOUR_VAR ./3-install-nginx.sh | tee -a ${LOG_LOCATION}
 	echo -e "${LGREEN}Nginx installation complete\n- Site changed to : http://${PROXY_SITE}\n- Default login (user/pass): guacadmin/guacadmin\n${LYELLOW}***Be sure to change the password***.${GREY}"
 	fi
 	
 
-# Apply self signed SSL certificates to Nginx reverse proxy if this option is selected
+### Apply self signed SSL certificates to Nginx reverse proxy if option is selected
 if [[ "${INSTALL_NGINX}" = true ]] && [[ "${SELF_SIGNED}" = true ]]; then
 	sudo -E $SELF_SIGN_VAR $COLOUR_VAR ./4a-install-ssl-self-signed-nginx.sh ${PROXY_SITE} ${CERT_DAYS} | tee -a ${LOG_LOCATION}
 echo -e "${LGREEN}Self signed certificates successfully created and configured for Nginx \n- Site changed to : ${LYELLOW}https:${LGREEN}//${PROXY_SITE}\n- Default login (user/pass): guacadmin/guacadmin\n${LYELLOW}***Be sure to change the password***.${GREY}"
 fi
 
-# Apply Let's Encrypt SSL certificates to Nginx reverse proxy if this option is selected
+### Apply Let's Encrypt SSL certificates to Nginx reverse proxy if option is selected
 if [[ "${INSTALL_NGINX}" = true ]] && [[ "${INSTALL_LETS_ENCRYPT}" = true ]]; then
 	sudo -E $LE_VAR $COLOUR_VAR ./4b-install-ssl-letsencrypt-nginx.sh | tee -a ${LOG_LOCATION}
 echo -e "${LGREEN}Let's Encrypt SSL successfully configured for Nginx \n- Site changed to : ${LYELLOW}https:${LGREEN}//${LE_DNS_NAME}\n- Default login (user/pass): guacadmin/guacadmin\n${LYELLOW}***Be sure to change the password***.${GREY}"

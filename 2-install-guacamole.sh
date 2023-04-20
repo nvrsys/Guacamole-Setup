@@ -243,12 +243,12 @@ echo "mysql-database: ${GUAC_DB}" >> /etc/guacamole/guacamole.properties
 echo "mysql-username: ${GUAC_USER}" >> /etc/guacamole/guacamole.properties
 echo "mysql-password: ${GUAC_PWD}" >> /etc/guacamole/guacamole.properties
 
-# Output Duo configuration settings into guacamole.properties, but comment them all out for now
+# Output Duo configuration settings into guacamole.properties
 if [ "${INSTALL_DUO}" = true ]; then
-	echo "# duo-api-hostname: " >> /etc/guacamole/guacamole.properties
-	echo "# duo-integration-key: " >> /etc/guacamole/guacamole.properties
-	echo "# duo-secret-key: " >> /etc/guacamole/guacamole.properties
-	echo "# duo-application-key: " >> /etc/guacamole/guacamole.properties
+	echo "duo-api-hostname: " >> /etc/guacamole/guacamole.properties
+	echo "duo-integration-key: " >> /etc/guacamole/guacamole.properties
+	echo "duo-secret-key: " >> /etc/guacamole/guacamole.properties
+	echo "duo-application-key: " >> /etc/guacamole/guacamole.properties
 	echo -e "${YELLOW}Duo is installed, it will need to be configured via guacamole.properties${GREY}"
 fi
 
