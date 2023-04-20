@@ -76,7 +76,7 @@ GUAC_VERSION="1.5.1"
 
 # Set preferred Apache CDN download link
 
-GUAC_SOURCE_LINK="http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUAC_VERSION}/"
+GUAC_SOURCE_LINK="https://dlcdn.apache.org/guacamole/${GUAC_VERSION}/"
 
 # MySQL Connector/J version
 MYSQLJCON="8.0.30"
